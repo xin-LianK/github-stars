@@ -4,7 +4,377 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>我的 GitHub 收藏 · 599 个项目</title>
+<style>
+:root{
+ --gh-bg:#fbfbfa;--gh-card:#fff;--gh-ink:#101216;--gh-ink2:#6a6f7a;--gh-ink3:#9aa0aa;
+ --gh-line:#e9e9e6;--gh-soft:#f4f4f1;--gh-acc:#3e63dd;--gh-acc-soft:#eef1fd;
+}
+@media (prefers-color-scheme:dark){:root{
+ --gh-bg:#0c0d10;--gh-card:#131519;--gh-ink:#eceef2;--gh-ink2:#9aa1ad;--gh-ink3:#6b7280;
+ --gh-line:#22262e;--gh-soft:#191d23;--gh-acc:#7d9bff;--gh-acc-soft:#1a2138;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+.gh-body{margin:0;background:var(--gh-bg);color:var(--gh-ink);
+ font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+ overflow-x:hidden;padding-bottom:64px;
+ -webkit-font-smoothing:antialiased}
+.gh-wrap{max-width:920px;margin:0 auto;padding:34px 18px 0}
+
+/* hero */
+.gh-eyebrow{font-size:11px;letter-spacing:.14em;color:var(--gh-ink3);text-transform:uppercase;margin-bottom:10px}
+.gh-title{margin:0;font-size:27px;line-height:1.28;letter-spacing:-.7px;font-weight:700}
+.gh-title em{font-style:normal;font-weight:700;color:var(--gh-acc)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+ .gh-title em{background:linear-gradient(96deg,#3e63dd,#8b5cf6 55%,#e0559a);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+}
+.gh-lede{margin:9px 0 0;color:var(--gh-ink2);font-size:13.5px}
+
+/* kpi strip */
+.gh-kpis{display:flex;margin:24px 0 4px;border-top:1px solid var(--gh-line);border-bottom:1px solid var(--gh-line)}
+.gh-kpi{flex:1 1 0;min-width:0;padding:15px 12px 14px 0;border-left:1px solid var(--gh-line);padding-left:14px}
+.gh-kpi:first-child{border-left:0;padding-left:0}
+.gh-kpi-n{display:block;font-size:22px;font-weight:680;letter-spacing:-.6px;line-height:1.2;
+ font-variant-numeric:tabular-nums}
+.gh-kpi-n small{font-size:11px;font-weight:500;color:var(--gh-ink3);margin-left:2px;letter-spacing:0}
+.gh-kpi-l{display:block;font-size:11.5px;color:var(--gh-ink3);margin-top:3px}
+
+/* section head */
+.gh-sec{display:flex;align-items:baseline;justify-content:space-between;margin:34px 0 14px}
+.gh-sec h2{margin:0;font-size:13px;font-weight:650;letter-spacing:.02em}
+.gh-sec span{font-size:11.5px;color:var(--gh-ink3)}
+
+/* viz */
+.gh-viz{display:grid;grid-template-columns:132px 1fr;grid-gap:20px;align-items:center;
+ background:var(--gh-card);border:1px solid var(--gh-line);border-radius:16px;padding:18px}
+.gh-donut{display:block;margin:0 auto}
+.gh-dn{font-size:19px;font-weight:680;fill:var(--gh-ink);letter-spacing:-.5px}
+.gh-dl{font-size:8.5px;fill:var(--gh-ink3);letter-spacing:.06em}
+.gh-lrow{display:flex;align-items:center;margin:7px 0;font-size:12px;min-width:0}
+.gh-lname{width:78px;flex:none;color:var(--gh-ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gh-ltrack{flex:1 1 auto;min-width:20px;height:6px;background:var(--gh-soft);border-radius:4px;overflow:hidden}
+.gh-ltrack i{display:block;height:100%;border-radius:4px}
+.gh-lval{width:58px;flex:none;text-align:right;color:var(--gh-ink);font-variant-numeric:tabular-nums}
+.gh-lval em{font-style:normal;color:var(--gh-ink3);margin-left:4px;font-size:11px}
+
+/* category stacked bar */
+.gh-sbar{display:flex;height:9px;border-radius:6px;overflow:hidden;background:var(--gh-soft);margin-bottom:14px}
+.gh-sbar i{display:block;height:100%}
+.gh-chips{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+.gh-chips::-webkit-scrollbar{display:none}
+.gh-chip{flex:none;margin-right:7px;padding:6px 11px;border-radius:9px;border:1px solid var(--gh-line);
+ background:var(--gh-card);color:var(--gh-ink2);font:inherit;font-size:12.5px;white-space:nowrap;
+ display:flex;align-items:center}
+.gh-chip b{font-weight:600;color:var(--gh-ink3);margin-left:5px;font-variant-numeric:tabular-nums}
+.gh-dot{width:6px;height:6px;border-radius:50%;background:var(--c,#bbb);margin-right:6px;display:block}
+.gh-on{background:var(--gh-ink);border-color:var(--gh-ink);color:var(--gh-bg)}
+.gh-on b{color:var(--gh-bg);opacity:.7}
+.gh-on .gh-dot{background:currentColor}
+
+/* search + sort */
+.gh-search{position:relative;margin:26px 0 0}
+.gh-q{width:100%;padding:12px 14px 12px 38px;font:inherit;font-size:15px;border:1px solid var(--gh-line);
+ border-radius:12px;background:var(--gh-card);color:var(--gh-ink);outline:none;-webkit-appearance:none}
+.gh-q::placeholder{color:var(--gh-ink3)}
+.gh-q:focus{border-color:var(--gh-acc);box-shadow:0 0 0 3px var(--gh-acc-soft)}
+.gh-mag{position:absolute;left:13px;top:50%;margin-top:-8px;width:16px;height:16px;opacity:.45}
+.gh-bar{display:flex;align-items:center;justify-content:space-between;margin:14px 0 12px;font-size:12.5px;color:var(--gh-ink2)}
+.gh-sort{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:9px;border:1px solid var(--gh-line);
+ background:var(--gh-card);color:var(--gh-ink);-webkit-appearance:none;appearance:none;padding-right:22px}
+.gh-sortwrap{position:relative}
+.gh-sortwrap:after{content:"";position:absolute;right:9px;top:50%;margin-top:-1px;border-left:4px solid transparent;
+ border-right:4px solid transparent;border-top:5px solid var(--gh-ink3)}
+
+/* list */
+.gh-list{border-top:1px solid var(--gh-line)}
+.gh-row{position:relative;padding:13px 0 13px 13px;border-bottom:1px solid var(--gh-line)}
+.gh-row:before{content:"";position:absolute;left:0;top:15px;bottom:15px;width:2px;border-radius:2px;background:var(--c)}
+.gh-rtop{display:flex;align-items:baseline}
+.gh-name{flex:1 1 auto;min-width:0;font-size:14.5px;font-weight:640;letter-spacing:-.2px;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gh-name a{color:var(--gh-ink);text-decoration:none}
+.gh-own{font-weight:400;color:var(--gh-ink3);font-size:12px;margin-left:5px}
+.gh-stars{flex:none;margin-left:10px;font-size:11.5px;color:var(--gh-ink2);font-variant-numeric:tabular-nums;
+ background:var(--gh-soft);border-radius:7px;padding:2px 7px}
+.gh-desc{margin:3px 0 0;font-size:12.8px;line-height:1.55;color:var(--gh-ink2);
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gh-lang{color:var(--gh-ink3)}
+.gh-empty{padding:44px 0;text-align:center;color:var(--gh-ink2);font-size:13.5px;border-bottom:1px solid var(--gh-line)}
+.gh-more{display:block;width:100%;margin:18px 0 0;padding:13px;border-radius:12px;border:1px solid var(--gh-line);
+ background:var(--gh-card);color:var(--gh-ink);font:inherit;font-size:13.5px;font-weight:600}
+.gh-more:active{background:var(--gh-soft)}
+.gh-foot{margin-top:38px;padding-top:18px;border-top:1px solid var(--gh-line);
+ font-size:11.5px;line-height:1.85;color:var(--gh-ink3)}
+.gh-foot b{color:var(--gh-ink2);font-weight:600}
+@media (max-width:560px){
+ .gh-viz{grid-template-columns:1fr;grid-gap:14px}
+ .gh-title{font-size:23px}
+ .gh-kpi-n{font-size:19px}
+ .gh-kpis{flex-wrap:wrap}
+ .gh-kpi{flex:1 1 46%;border-left:0;padding-left:0;border-top:0}
+ .gh-kpi:nth-child(odd){padding-right:14px}
+}
+
+a.gh-row{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,.05);
+ transition:background .12s ease;position:relative;padding-right:16px}
+a.gh-row:active{background:var(--gh-soft)}
+.gh-nm{color:var(--gh-ink)}
+a.gh-row:after{content:"";position:absolute;right:2px;top:26px;width:6px;height:6px;margin-top:-3px;
+ border-right:1.5px solid var(--gh-ink3);border-bottom:1.5px solid var(--gh-ink3);transform:rotate(-45deg);opacity:.5}
+.gh-tags{display:flex;flex-wrap:wrap;margin-top:6px}
+.gh-tg{font-size:10.5px;color:var(--gh-ink2);background:var(--gh-soft);border-radius:5px;
+ padding:2px 6px;margin:0 5px 0 0;line-height:1.5;white-space:nowrap}
+
+/* modal */
+.gh-modal{position:fixed;left:0;right:0;top:0;bottom:0;z-index:60;display:none;background:rgba(12,14,18,.46)}
+.gh-modal.gh-open{display:flex;align-items:flex-end;justify-content:center}
+.gh-sheet{width:100%;max-width:600px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+ background:var(--gh-card);border-radius:20px 20px 0 0;padding:6px 20px 22px;
+ box-shadow:0 -12px 48px rgba(0,0,0,.22);transform:translateY(100%);transition:transform .26s cubic-bezier(.22,.61,.36,1)}
+.gh-modal.gh-open .gh-sheet{transform:translateY(0)}
+.gh-grab{width:36px;height:4px;border-radius:2px;background:var(--gh-line);margin:8px auto 14px}
+.gh-sheet-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gh-badge{display:inline-flex;align-items:center;font-size:11px;color:var(--gh-ink2);
+ background:var(--gh-soft);border-radius:7px;padding:3px 8px}
+.gh-badge i{width:6px;height:6px;border-radius:50%;background:var(--c,#bbb);margin-right:6px;display:block}
+.gh-x{width:30px;height:30px;border-radius:50%;border:0;background:var(--gh-soft);color:var(--gh-ink2);
+ font-size:15px;line-height:30px;text-align:center;padding:0;font-family:inherit}
+.gh-sheet h3{margin:0 0 6px;font-size:19px;line-height:1.35;letter-spacing:-.4px;font-weight:700;overflow-wrap:anywhere}
+.gh-meta{font-size:12px;color:var(--gh-ink3);margin-bottom:12px;line-height:1.7;overflow-wrap:anywhere}
+.gh-meta b{color:var(--gh-ink);font-weight:600;font-variant-numeric:tabular-nums}
+.gh-mtags{display:flex;flex-wrap:wrap;margin-bottom:16px}
+.gh-mtags span{font-size:11.5px;color:var(--gh-acc);background:var(--gh-acc-soft);border-radius:7px;
+ padding:3px 8px;margin:0 6px 6px 0;white-space:nowrap}
+.gh-block{margin-bottom:16px}
+.gh-block h4{margin:0 0 7px;font-size:11px;letter-spacing:.08em;color:var(--gh-ink3);font-weight:600;text-transform:uppercase}
+.gh-brief{margin:0;font-size:15px;line-height:1.75;color:var(--gh-ink);overflow-wrap:anywhere}
+.gh-read{margin:0;font-size:13px;line-height:1.8;color:var(--gh-ink2);overflow-wrap:anywhere;
+ border-left:2px solid var(--gh-line);padding-left:12px;max-height:210px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gh-actions{display:flex;align-items:center;margin-top:18px}
+.gh-btn{flex:1 1 auto;display:block;text-align:center;padding:13px 14px;border-radius:12px;font-size:14px;
+ font-weight:600;text-decoration:none;border:1px solid var(--gh-line);background:var(--gh-card);color:var(--gh-ink);font-family:inherit}
+.gh-btn + .gh-btn{margin-left:10px}
+.gh-primary{flex:2 1 auto;background:var(--gh-acc);border-color:var(--gh-acc);color:#fff}
+.gh-btn:active{opacity:.82}
+@media (min-width:600px){
+ .gh-modal.gh-open{align-items:center;padding:24px}
+ .gh-sheet{border-radius:20px;transform:translateY(14px);opacity:0;transition:transform .22s ease,opacity .22s ease;max-height:82vh}
+ .gh-modal.gh-open .gh-sheet{transform:translateY(0);opacity:1}
+ .gh-grab{display:none}
+}
+body.gh-lock{overflow:hidden}
+</style>
 </head>
-<body>placeholder will be replaced
+<body class="gh-body">
+<div class="gh-wrap">
+  <div class="gh-eyebrow">GitHub Stars · 公开可见</div>
+  <h1 class="gh-title">收藏的 <em>599</em> 个项目</h1>
+  <p class="gh-lede">@xin-LianK · 抓取于 2026-11-21 · 按 Star 降序 · 点项目看完整介绍</p>
+
+  <div class="gh-kpis">
+    <div class="gh-kpi"><span class="gh-kpi-n">32<small>种</small></span><span class="gh-kpi-l">语言</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n">1433<small>万</small></span><span class="gh-kpi-l">Star 总和</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n">10<small>类</small></span><span class="gh-kpi-l">用途分类</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n" style="font-size:15px;line-height:1.5">public-apis</span><span class="gh-kpi-l">最火收藏 · 500,247</span></div>
+  </div>
+
+  <div class="gh-sec"><h2>语言分布</h2><span>前 7 种 + 其他</span></div>
+  <div class="gh-viz"><svg viewBox="0 0 120 120" width="132" height="132" class="gh-donut"><circle cx="60" cy="60" r="52" fill="none" stroke="#3e63dd" stroke-width="16" stroke-dasharray="66.00 260.73" stroke-dashoffset="-0.00" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="60.55 266.18" stroke-dashoffset="-66.00" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#12a594" stroke-width="16" stroke-dasharray="55.09 271.64" stroke-dashoffset="-126.54" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#d6409f" stroke-width="16" stroke-dasharray="32.18 294.54" stroke-dashoffset="-181.64" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#6e56cf" stroke-width="16" stroke-dasharray="18.55 308.18" stroke-dashoffset="-213.82" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#0091ff" stroke-width="16" stroke-dasharray="12.00 314.73" stroke-dashoffset="-232.36" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#e5484d" stroke-width="16" stroke-dasharray="12.00 314.73" stroke-dashoffset="-244.36" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#c8c9d0" stroke-width="16" stroke-dasharray="70.36 256.36" stroke-dashoffset="-256.36" transform="rotate(-90 60 60)"/><text x="60" y="57" text-anchor="middle" class="gh-dn">599</text><text x="60" y="74" text-anchor="middle" class="gh-dl">个项目</text></svg><div><div class="gh-lrow"><span class="gh-lname">TypeScript</span><span class="gh-ltrack"><i style="width:100.0%;background:#3e63dd"></i></span><span class="gh-lval">121<em>20.2%</em></span></div><div class="gh-lrow"><span class="gh-lname">JavaScript</span><span class="gh-ltrack"><i style="width:91.7%;background:#f59e0b"></i></span><span class="gh-lval">111<em>18.5%</em></span></div><div class="gh-lrow"><span class="gh-lname">Python</span><span class="gh-ltrack"><i style="width:82.8%;background:#12a594"></i></span><span class="gh-lval">104<em>17.4%</em></span></div><div class="gh-lrow"><span class="gh-lname">Go</span><span class="gh-ltrack"><i style="width:32.2%;background:#d6409f"></i></span><span class="gh-lval">39<em>6.5%</em></span></div><div class="gh-lrow"><span class="gh-lname">Rust</span><span class="gh-ltrack"><i style="width:18.6%;background:#6e56cf"></i></span><span class="gh-lval">22<em>3.7%</em></span></div><div class="gh-lrow"><span class="gh-lname">C</span><span class="gh-ltrack"><i style="width:12.0%;background:#0091ff"></i></span><span class="gh-lval">12<em>2.0%</em></span></div><div class="gh-lrow"><span class="gh-lname">C++</span><span class="gh-ltrack"><i style="width:12.0%;background:#e5484d"></i></span><span class="gh-lval">12<em>2.0%</em></span></div><div class="gh-lrow"><span class="gh-lname">其他</span><span class="gh-ltrack"><i style="width:70.4%;background:#c8c9d0"></i></span><span class="gh-lval">178<em>29.7%</em></span></div></div></div>
+
+  <div class="gh-sec"><h2>用途分类</h2><span>点一下只看这一类</span></div>
+  <div class="gh-sbar"><i style="width:19.70%;background:#6e56cf"></i><i style="width:17.53%;background:#3e63dd"></i><i style="width:13.86%;background:#e54d2e"></i><i style="width:11.69%;background:#12a594"></i><i style="width:10.02%;background:#d6409f"></i><i style="width:8.68%;background:#30a46c"></i><i style="width:7.01%;background:#c98a00"></i><i style="width:6.51%;background:#0091ff"></i><i style="width:3.17%;background:#e5484d"></i><i style="width:1.84%;background:#8b8d98"></i></div>
+  <div class="gh-chips" id="ghChips"><button class="gh-chip gh-on" data-c="全部"><b>全部</b> 599</button><button class="gh-chip" data-c="AI 与智能体" style="--c:#6e56cf"><i class="gh-dot"></i>AI 与智能体 <b>118</b></button><button class="gh-chip" data-c="开发工具与效率" style="--c:#3e63dd"><i class="gh-dot"></i>开发工具与效率 <b>105</b></button><button class="gh-chip" data-c="影音与图像" style="--c:#e54d2e"><i class="gh-dot"></i>影音与图像 <b>83</b></button><button class="gh-chip" data-c="学习资源与清单" style="--c:#12a594"><i class="gh-dot"></i>学习资源与清单 <b>70</b></button><button class="gh-chip" data-c="前端与 UI" style="--c:#d6409f"><i class="gh-dot"></i>前端与 UI <b>60</b></button><button class="gh-chip" data-c="自托管与服务器" style="--c:#30a46c"><i class="gh-dot"></i>自托管与服务器 <b>52</b></button><button class="gh-chip" data-c="系统与桌面移动" style="--c:#c98a00"><i class="gh-dot"></i>系统与桌面移动 <b>42</b></button><button class="gh-chip" data-c="网络与代理" style="--c:#0091ff"><i class="gh-dot"></i>网络与代理 <b>39</b></button><button class="gh-chip" data-c="安全与密码" style="--c:#e5484d"><i class="gh-dot"></i>安全与密码 <b>19</b></button><button class="gh-chip" data-c="其他" style="--c:#8b8d98"><i class="gh-dot"></i>其他 <b>11</b></button></div>
+
+  <div class="gh-search" id="ghSearch">
+    <svg class="gh-mag" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l4 4"></path></svg>
+    <input id="ghQ" class="gh-q" type="search" placeholder="搜索项目名、作者、简介、标签" autocomplete="off">
+  </div>
+
+  <div class="gh-bar">
+    <span id="ghCount">共 <b>599</b> 个</span>
+    <span class="gh-sortwrap"><select id="ghSort" class="gh-sort">
+      <option value="star">Star 从高到低</option>
+      <option value="starA">Star 从低到高</option>
+      <option value="name">名称 A→Z</option>
+      <option value="cat">按分类</option>
+    </select></span>
+  </div>
+
+  <div class="gh-list" id="ghList">
+<div id="ghStatus" style="padding:30px 0;color:var(--gh-ink3);font-size:14px;text-align:center">正在加载 599 个项目…</div>
+  </div>
+
+  <div class="gh-foot">
+    <b>数据说明</b>　Stars 页显示 612 个，公开可见 599 个，差额应为私有或已删除仓库。<br>
+    <b>内容说明</b>　简介为中文撰写，标签取自仓库 topics，README 摘要为项目原文节选。
+  </div>
+</div>
+
+<div class="gh-modal" id="ghModal" aria-hidden="true">
+  <div class="gh-sheet" role="dialog" aria-modal="true" aria-labelledby="ghmName">
+    <div class="gh-grab"></div>
+    <div class="gh-sheet-top">
+      <span class="gh-badge" id="ghmCat"></span>
+      <button class="gh-x" id="ghmClose" aria-label="关闭">✕</button>
+    </div>
+    <h3 id="ghmName"></h3>
+    <div class="gh-meta" id="ghmMeta"></div>
+    <div class="gh-mtags" id="ghmTags"></div>
+    <div class="gh-block"><h4>简介</h4><p class="gh-brief" id="ghmBrief"></p></div>
+    <div class="gh-block" id="ghmReadBlock"><h4>README 摘要</h4><p class="gh-read" id="ghmRead"></p></div>
+    <div class="gh-actions">
+      <a class="gh-btn gh-primary" id="ghmLink" href="https://github.com" target="_blank" rel="noopener">查看源项目 ↗</a>
+      <button class="gh-btn" id="ghmCopy">复制链接</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.DETAIL = [];
+var CATC = {"AI 与智能体": "#6e56cf", "开发工具与效率": "#3e63dd", "影音与图像": "#e54d2e", "学习资源与清单": "#12a594", "前端与 UI": "#d6409f", "自托管与服务器": "#30a46c", "系统与桌面移动": "#c98a00", "网络与代理": "#0091ff", "安全与密码": "#e5484d", "其他": "#8b8d98"};
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function $(id){ return document.getElementById(id); }
+function rowHtml(x, i){
+  var key = (x.r+' '+x.d+' '+x.l+' '+x.tags.join(' ')).toLowerCase();
+  var tags = x.tags.slice(0,3).map(function(t){return '<span class="gh-tg">'+esc(t)+'</span>';}).join('');
+  return '<a class="gh-row" href="https://github.com/'+esc(x.r)+'" data-i="'+i+'" data-c="'+esc(x.c)+'" data-s="'+x.s+'" data-n="'+esc(x.n.toLowerCase())+'" data-k="'+esc(key)+'">'
+    +'<div class="gh-rtop"><div class="gh-name"><span class="gh-nm">'+esc(x.n)+'</span>'
+    +'<span class="gh-own">'+esc(x.o)+'</span></div>'
+    +'<span class="gh-stars">'+x.s.toLocaleString()+' ★</span></div>'
+    +'<p class="gh-desc">'+esc(x.d)+' <span class="gh-lang">· '+esc(x.l)+'</span></p>'
+    +(tags?'<div class="gh-tags">'+tags+'</div>':'')+'</a>';
+}
+function renderAll(){
+  var list = $('ghList'); if(!list) return;
+  var h = '';
+  for(var i=0;i<DETAIL.length;i++) h += rowHtml(DETAIL[i], i);
+  list.innerHTML = h;
+  initUI();
+  var st = $('ghStatus'); if(st) st.style.display='none';
+}
+function apply(){
+  var input = $('ghQ'), count = $('ghCount'), list = $('ghList');
+  var kw = (input && input.value || '').toLowerCase().replace(/^\s+|\s+$/g, '');
+  var els = list.getElementsByClassName('gh-row'), n = 0, i, el, ok;
+  for(i = 0; i < els.length; i++){
+    el = els[i];
+    ok = (cat === '全部' || el.getAttribute('data-c') === cat) &&
+         (!kw || (el.getAttribute('data-k') || '').indexOf(kw) !== -1);
+    el.style.display = ok ? '' : 'none';
+    if(ok) n++;
+  }
+  if(count) count.innerHTML = '共 <b>' + n + '</b> 个' + (cat !== '全部' ? ' · ' + cat : '');
+}
+function sortRows(){
+  var sortSel = $('ghSort'), list = $('ghList');
+  var mode = sortSel ? sortSel.value : 'star', arr = [], i, nodes = list.getElementsByClassName('gh-row');
+  for(i = 0; i < nodes.length; i++) arr.push(nodes[i]);
+  arr.sort(function(a, b){
+    var x = parseInt(a.getAttribute('data-s'), 10) || 0, y = parseInt(b.getAttribute('data-s'), 10) || 0;
+    if(mode === 'starA') return x - y;
+    if(mode === 'name'){
+      var p = a.getAttribute('data-n'), q = b.getAttribute('data-n');
+      return p < q ? -1 : (p > q ? 1 : 0);
+    }
+    if(mode === 'cat'){
+      var c1 = a.getAttribute('data-c'), c2 = b.getAttribute('data-c');
+      if(c1 !== c2) return c1 < c2 ? -1 : 1;
+    }
+    return y - x;
+  });
+  for(i = 0; i < arr.length; i++) list.appendChild(arr[i]);
+}
+var cat = '全部';
+function initUI(){
+  var list = $('ghList'), input = $('ghQ'), sortSel = $('ghSort'), count = $('ghCount');
+  if(!list) return;
+  document.body.className += ' gh-js';
+  var chipBox = $('ghChips'), chips = chipBox ? chipBox.getElementsByTagName('button') : [];
+  input.oninput = apply;
+  if(sortSel) sortSel.onchange = function(){ sortRows(); apply(); };
+  for(var j = 0; j < chips.length; j++){
+    chips[j].onclick = (function(btn){
+      return function(){
+        for(var k = 0; k < chips.length; k++) chips[k].className = chips[k].className.replace(/ gh-on/g, '');
+        btn.className += ' gh-on';
+        cat = btn.getAttribute('data-c') || '全部';
+        apply();
+      };
+    })(chips[j]);
+  }
+  var modal = $('ghModal');
+  list.addEventListener('click', function(e){
+    var t = e.target, row = null;
+    while(t && t !== list){ if(t.className && String(t.className).indexOf('gh-row') === 0){ row = t; break; } t = t.parentNode; }
+    if(!row) return;
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    openModal(parseInt(row.getAttribute('data-i'), 10));
+  }, false);
+  function openModal(idx){
+    var x = DETAIL[idx]; if(!modal || !x) return;
+    $('ghmName').textContent = x.n;
+    var meta = '<b>' + x.o + '</b> · ' + x.l + ' · ' + x.s.toLocaleString() + ' ★';
+    if(x.lic) meta += ' · ' + x.lic;
+    $('ghmMeta').innerHTML = meta;
+    $('ghmCat').innerHTML = '<i style="--c:' + (CATC[x.c] || '#bbb') + '"></i>' + x.c;
+    $('ghmTags').innerHTML = (x.tags && x.tags.length)
+      ? x.tags.map(function(t){ return '<span>' + t + '</span>'; }).join('')
+      : '<span>' + x.c + '</span>';
+    $('ghmBrief').textContent = x.d;
+    var rd = $('ghmRead'), blk = $('ghmReadBlock');
+    if(x.readme){ rd.textContent = x.readme; blk.style.display = 'block'; rd.scrollTop = 0; }
+    else { blk.style.display = 'none'; }
+    $('ghmLink').setAttribute('href', 'https://github.com/' + x.r);
+    modal.className = 'gh-modal gh-open';
+    document.body.className += ' gh-lock';
+    document.querySelector('.gh-sheet').scrollTop = 0;
+    $('ghmCopy').textContent = '复制链接';
+  }
+  function closeModal(){
+    modal.className = 'gh-modal';
+    document.body.className = document.body.className.replace(/ gh-lock/g, '');
+  }
+  if(modal){
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+    $('ghmClose').onclick = closeModal;
+    document.addEventListener('keydown', function(e){
+      if((e.key === 'Escape' || e.keyCode === 27) && modal.className.indexOf('gh-open') !== -1) closeModal();
+    });
+    $('ghmCopy').onclick = function(){
+      var url = $('ghmLink').getAttribute('href'), btn = this;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url); }
+        else {
+          var ta = document.createElement('textarea');
+          ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.textContent = '已复制';
+      }catch(err){ btn.textContent = '复制失败'; }
+    };
+  }
+  apply();
+}
+(function(){
+  var files = ['detail_0.json','detail_1.json','detail_2.json','detail_3.json','detail_4.json','detail_5.json','detail_6.json','detail_7.json','detail_8.json','detail_9.json','detail_10.json','detail_11.json','detail_12.json','detail_13.json'], done = 0, parts = new Array(files.length);
+  for(var f=0; f<files.length; f++){
+    (function(fn, idx){
+      var x = new XMLHttpRequest();
+      x.open('GET', fn, true);
+      x.onload = function(){ try{ parts[idx] = JSON.parse(x.responseText); }catch(e){ parts[idx] = []; }
+        done++; if(done === files.length) merge(); };
+      x.onerror = function(){ parts[idx] = []; done++; if(done === files.length) merge(); };
+      x.send();
+    })(files[f], f);
+  }
+  function merge(){
+    for(var i=0;i<parts.length;i++){ var a = parts[i] || []; for(var j=0;j<a.length;j++) DETAIL.push(a[j]); }
+    renderAll();
+  }
+})();
+</script>
 </body>
 </html>
