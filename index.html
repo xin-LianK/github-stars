@@ -169,13 +169,13 @@ body.gh-lock{overflow:hidden}
 <body class="gh-body">
 <div class="gh-wrap">
   <div class="gh-eyebrow">GitHub Stars · 公开可见</div>
-  <h1 class="gh-title">收藏的 <em>599</em> 个项目</h1>
-  <p class="gh-lede">@xin-LianK · 抓取于 2026-11-21 · 按 Star 降序 · 点项目看完整介绍</p>
+  <h1 class="gh-title">收藏的 <em id="ghTotal">599</em> 个项目</h1>
+  <p class="gh-lede">@xin-LianK · 数据更新于 <span id="ghDate">2026-11-21</span> · 按 Star 降序 · 点项目看完整介绍</p>
 
   <div class="gh-kpis">
-    <div class="gh-kpi"><span class="gh-kpi-n">32<small>种</small></span><span class="gh-kpi-l">语言</span></div>
-    <div class="gh-kpi"><span class="gh-kpi-n">1433<small>万</small></span><span class="gh-kpi-l">Star 总和</span></div>
-    <div class="gh-kpi"><span class="gh-kpi-n">10<small>类</small></span><span class="gh-kpi-l">用途分类</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghLangN">32</span><small>种</small></span><span class="gh-kpi-l">语言</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghStarW">1433</span><small>万</small></span><span class="gh-kpi-l">Star 总和</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghCatN">10</span><small>类</small></span><span class="gh-kpi-l">用途分类</span></div>
     <div class="gh-kpi"><span class="gh-kpi-n" style="font-size:15px;line-height:1.5">public-apis</span><span class="gh-kpi-l">最火收藏 · 500,247</span></div>
   </div>
 
@@ -184,7 +184,7 @@ body.gh-lock{overflow:hidden}
 
   <div class="gh-sec"><h2>用途分类</h2><span>点一下只看这一类</span></div>
   <div class="gh-sbar"><i style="width:19.70%;background:#6e56cf"></i><i style="width:17.53%;background:#3e63dd"></i><i style="width:13.86%;background:#e54d2e"></i><i style="width:11.69%;background:#12a594"></i><i style="width:10.02%;background:#d6409f"></i><i style="width:8.68%;background:#30a46c"></i><i style="width:7.01%;background:#c98a00"></i><i style="width:6.51%;background:#0091ff"></i><i style="width:3.17%;background:#e5484d"></i><i style="width:1.84%;background:#8b8d98"></i></div>
-  <div class="gh-chips" id="ghChips"><button class="gh-chip gh-on" data-c="全部"><b>全部</b> 599</button><button class="gh-chip" data-c="AI 与智能体" style="--c:#6e56cf"><i class="gh-dot"></i>AI 与智能体 <b>118</b></button><button class="gh-chip" data-c="开发工具与效率" style="--c:#3e63dd"><i class="gh-dot"></i>开发工具与效率 <b>105</b></button><button class="gh-chip" data-c="影音与图像" style="--c:#e54d2e"><i class="gh-dot"></i>影音与图像 <b>83</b></button><button class="gh-chip" data-c="学习资源与清单" style="--c:#12a594"><i class="gh-dot"></i>学习资源与清单 <b>70</b></button><button class="gh-chip" data-c="前端与 UI" style="--c:#d6409f"><i class="gh-dot"></i>前端与 UI <b>60</b></button><button class="gh-chip" data-c="自托管与服务器" style="--c:#30a46c"><i class="gh-dot"></i>自托管与服务器 <b>52</b></button><button class="gh-chip" data-c="系统与桌面移动" style="--c:#c98a00"><i class="gh-dot"></i>系统与桌面移动 <b>42</b></button><button class="gh-chip" data-c="网络与代理" style="--c:#0091ff"><i class="gh-dot"></i>网络与代理 <b>39</b></button><button class="gh-chip" data-c="安全与密码" style="--c:#e5484d"><i class="gh-dot"></i>安全与密码 <b>19</b></button><button class="gh-chip" data-c="其他" style="--c:#8b8d98"><i class="gh-dot"></i>其他 <b>11</b></button></div>
+  <div class="gh-chips" id="ghChips"></div>
 
   <div class="gh-search" id="ghSearch">
     <svg class="gh-mag" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l4 4"></path></svg>
@@ -202,11 +202,11 @@ body.gh-lock{overflow:hidden}
   </div>
 
   <div class="gh-list" id="ghList">
-<div id="ghStatus" style="padding:30px 0;color:var(--gh-ink3);font-size:14px;text-align:center">正在加载 599 个项目…</div>
+<div id="ghStatus" style="padding:30px 0;color:var(--gh-ink3);font-size:14px;text-align:center">正在加载项目…</div>
   </div>
 
   <div class="gh-foot">
-    <b>数据说明</b>　Stars 页显示 612 个，公开可见 599 个，差额应为私有或已删除仓库。<br>
+    <b>数据说明</b>　差额为私有或已删除仓库，数量每日自动更新。<br>
     <b>内容说明</b>　简介为中文撰写，标签取自仓库 topics，README 摘要为项目原文节选。
   </div>
 </div>
@@ -250,8 +250,33 @@ function renderAll(){
   var h = '';
   for(var i=0;i<DETAIL.length;i++) h += rowHtml(DETAIL[i], i);
   list.innerHTML = h;
+  var n = DETAIL.length;
+  var t = $('ghTotal'); if(t) t.textContent = n;
+  var st2 = $('ghStatus'); if(st2) st2.style.display='none';
+  var langs = {}, cats = {}, sw = 0, cc = {};
+  for(var i=0;i<n;i++){
+    var x = DETAIL[i];
+    if(x.l && x.l !== '未标注') langs[x.l] = 1;
+    cats[x.c] = (cats[x.c]||0)+1;
+    sw += x.s;
+  }
+  var e;
+  e = $('ghLangN'); if(e) e.textContent = Object.keys(langs).length;
+  e = $('ghCatN'); if(e) e.textContent = Object.keys(cats).length;
+  e = $('ghStarW'); if(e) e.textContent = Math.round(sw/10000);
+  var box = $('ghChips');
+  if(box){
+    var order = [];
+    for(var c in cats) order.push(c);
+    order.sort(function(a,b){ return cats[b]-cats[a]; });
+    var ch = '<button class="gh-chip gh-on" data-c="\u5168\u90e8">\u5168\u90e8 <b>' + n + '</b></button>';
+    for(var i=0;i<order.length;i++){
+      var c = order[i];
+      ch += '<button class="gh-chip" data-c="' + esc(c) + '" style="--c:' + (CATC[c]||'#bbb') + '"><i class="gh-dot"></i>' + esc(c) + ' <b>' + cats[c] + '</b></button>';
+    }
+    box.innerHTML = ch;
+  }
   initUI();
-  var st = $('ghStatus'); if(st) st.style.display='none';
 }
 function apply(){
   var input = $('ghQ'), count = $('ghCount'), list = $('ghList');
