@@ -388,7 +388,7 @@ function initUI(){
   for(var f=0; f<files.length; f++){
     (function(fn, idx){
       var x = new XMLHttpRequest();
-      x.open('GET', fn, true);
+      x.open('GET', fn + '?v=' + (new Date()).getTime(), true);
       x.onload = function(){ try{ parts[idx] = JSON.parse(x.responseText); }catch(e){ parts[idx] = []; }
         done++; if(done === files.length) merge(); };
       x.onerror = function(){ parts[idx] = []; done++; if(done === files.length) merge(); };
