@@ -196,6 +196,8 @@ body.gh-lock{overflow:hidden}
     <span class="gh-sortwrap"><select id="ghSort" class="gh-sort">
       <option value="star">Star 从高到低</option>
       <option value="starA">Star 从低到高</option>
+      <option value="time">收藏时间 新→旧</option>
+      <option value="timeA">收藏时间 旧→新</option>
       <option value="name">名称 A→Z</option>
       <option value="cat">按分类</option>
     </select></span>
@@ -238,7 +240,7 @@ function $(id){ return document.getElementById(id); }
 function rowHtml(x, i){
   var key = (x.r+' '+x.d+' '+x.l+' '+x.tags.join(' ')).toLowerCase();
   var tags = x.tags.slice(0,3).map(function(t){return '<span class="gh-tg">'+esc(t)+'</span>';}).join('');
-  return '<a class="gh-row" href="https://github.com/'+esc(x.r)+'" data-i="'+i+'" data-c="'+esc(x.c)+'" data-s="'+x.s+'" data-n="'+esc(x.n.toLowerCase())+'" data-k="'+esc(key)+'">'
+  return '<a class="gh-row" href="https://github.com/'+esc(x.r)+'" data-i="'+i+'" data-c="'+esc(x.c)+'" data-s="'+x.s+'" data-n="'+esc(x.n.toLowerCase())+'" data-t="'+(x.st||'')+'" data-k="'+esc(key)+'">'
     +'<div class="gh-rtop"><div class="gh-name"><span class="gh-nm">'+esc(x.n)+'</span>'
     +'<span class="gh-own">'+esc(x.o)+'</span></div>'
     +'<span class="gh-stars">'+x.s.toLocaleString()+' ★</span></div>'
@@ -298,6 +300,14 @@ function sortRows(){
   arr.sort(function(a, b){
     var x = parseInt(a.getAttribute('data-s'), 10) || 0, y = parseInt(b.getAttribute('data-s'), 10) || 0;
     if(mode === 'starA') return x - y;
+    if(mode === 'time' || mode === 'timeA'){
+      var t1 = a.getAttribute('data-t') || '', t2 = b.getAttribute('data-t') || '';
+      if(!t1 && !t2) return y - x;
+      if(!t1) return 1;          // 无时间戳的排最后
+      if(!t2) return -1;
+      return mode === 'time' ? (t1 < t2 ? 1 : (t1 > t2 ? -1 : 0))
+                             : (t1 < t2 ? -1 : (t1 > t2 ? 1 : 0));
+    }
     if(mode === 'name'){
       var p = a.getAttribute('data-n'), q = b.getAttribute('data-n');
       return p < q ? -1 : (p > q ? 1 : 0);
@@ -342,6 +352,7 @@ function initUI(){
     $('ghmName').textContent = x.n;
     var meta = '<b>' + x.o + '</b> · ' + x.l + ' · ' + x.s.toLocaleString() + ' ★';
     if(x.lic) meta += ' · ' + x.lic;
+    if(x.st) meta += '<br>收藏于 ' + x.st.slice(0, 10);
     $('ghmMeta').innerHTML = meta;
     $('ghmCat').innerHTML = '<i style="--c:' + (CATC[x.c] || '#bbb') + '"></i>' + x.c;
     $('ghmTags').innerHTML = (x.tags && x.tags.length)
@@ -400,7 +411,7 @@ function initUI(){
       var a = parts[i] || [];
       for(var j=0;j<a.length;j++){
         var r = a[j];
-        DETAIL.push({r:r[0], n:r[0].split('/')[1], o:r[0].split('/')[0], d:r[1], l:r[2], s:r[3], c:r[4], tags:r[5], readme:r[6]||'', lic:''});
+        DETAIL.push({r:r[0], n:r[0].split('/')[1], o:r[0].split('/')[0], d:r[1], l:r[2], s:r[3], c:r[4], tags:r[5], readme:r[6]||'', st:r[7]||'', lic:''});
       }
     }
     renderAll();
