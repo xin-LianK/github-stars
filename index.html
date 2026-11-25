@@ -77,6 +77,20 @@ html{-webkit-text-size-adjust:100%}
 .gh-tg.gh-up.gh-old{color:#b45309;border-color:#f0c68a}
 @media (prefers-color-scheme:dark){.gh-tg.gh-up.gh-old{color:#f0b465;border-color:#5a4526}}
 
+.gh-tlwrap{background:var(--gh-card);border:1px solid var(--gh-line);border-radius:16px;padding:18px 16px 14px}
+.gh-tl-empty{font-size:13px;color:var(--gh-ink3);text-align:center;padding:24px 0}
+.gh-tl{display:flex;align-items:flex-end;gap:5px;min-height:128px}
+.gh-tl-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.gh-tl-num{font-size:9.5px;color:var(--gh-ink3);margin-bottom:4px;font-variant-numeric:tabular-nums}
+.gh-tl-bar{width:100%;max-width:34px;border-radius:5px 5px 1px 1px;background:var(--gh-acc);opacity:.55;
+ min-height:3px;transition:opacity .15s}
+.gh-tl-col:hover .gh-tl-bar{opacity:1}
+.gh-tl-bar.gh-max{opacity:1;background:linear-gradient(180deg,#8b5cf6,#3e63dd)}
+.gh-tl-lab{font-size:10px;color:var(--gh-ink3);margin-top:6px;font-variant-numeric:tabular-nums}
+.gh-tl-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--gh-line);
+ font-size:11.5px;color:var(--gh-ink3);display:flex;flex-wrap:wrap;gap:4px 16px}
+.gh-tl-foot b{color:var(--gh-ink2);font-weight:600}
+
 /* search + sort */
 .gh-search{position:relative;margin:26px 0 0}
 .gh-q{width:100%;padding:12px 14px 12px 38px;font:inherit;font-size:15px;border:1px solid var(--gh-line);
@@ -178,14 +192,14 @@ body.gh-lock{overflow:hidden}
   <p class="gh-lede">@xin-LianK · 数据更新于 <span id="ghDate">2026-11-21</span> · 按 Star 降序 · 点项目看完整介绍</p>
 
   <div class="gh-kpis">
-    <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghLangN">32</span><small>种</small></span><span class="gh-kpi-l">语言</span></div>
+    <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghLiveN">387</span><small>个</small></span><span class="gh-kpi-l">半年内还在更新</span></div>
     <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghStarW">1433</span><small>万</small></span><span class="gh-kpi-l">Star 总和</span></div>
     <div class="gh-kpi"><span class="gh-kpi-n"><span id="ghCatN">10</span><small>类</small></span><span class="gh-kpi-l">用途分类</span></div>
     <div class="gh-kpi"><span class="gh-kpi-n" style="font-size:15px;line-height:1.5">public-apis</span><span class="gh-kpi-l">最火收藏 · 500,247</span></div>
   </div>
 
-  <div class="gh-sec"><h2>语言分布</h2><span>前 7 种 + 其他</span></div>
-  <div class="gh-viz"><svg viewBox="0 0 120 120" width="132" height="132" class="gh-donut"><circle cx="60" cy="60" r="52" fill="none" stroke="#3e63dd" stroke-width="16" stroke-dasharray="66.00 260.73" stroke-dashoffset="-0.00" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="60.55 266.18" stroke-dashoffset="-66.00" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#12a594" stroke-width="16" stroke-dasharray="55.09 271.64" stroke-dashoffset="-126.54" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#d6409f" stroke-width="16" stroke-dasharray="32.18 294.54" stroke-dashoffset="-181.64" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#6e56cf" stroke-width="16" stroke-dasharray="18.55 308.18" stroke-dashoffset="-213.82" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#0091ff" stroke-width="16" stroke-dasharray="12.00 314.73" stroke-dashoffset="-232.36" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#e5484d" stroke-width="16" stroke-dasharray="12.00 314.73" stroke-dashoffset="-244.36" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="52" fill="none" stroke="#c8c9d0" stroke-width="16" stroke-dasharray="70.36 256.36" stroke-dashoffset="-256.36" transform="rotate(-90 60 60)"/><text x="60" y="57" text-anchor="middle" class="gh-dn">599</text><text x="60" y="74" text-anchor="middle" class="gh-dl">个项目</text></svg><div><div class="gh-lrow"><span class="gh-lname">TypeScript</span><span class="gh-ltrack"><i style="width:100.0%;background:#3e63dd"></i></span><span class="gh-lval">121<em>20.2%</em></span></div><div class="gh-lrow"><span class="gh-lname">JavaScript</span><span class="gh-ltrack"><i style="width:91.7%;background:#f59e0b"></i></span><span class="gh-lval">111<em>18.5%</em></span></div><div class="gh-lrow"><span class="gh-lname">Python</span><span class="gh-ltrack"><i style="width:83.5%;background:#12a594"></i></span><span class="gh-lval">101<em>16.9%</em></span></div><div class="gh-lrow"><span class="gh-lname">未标注</span><span class="gh-ltrack"><i style="width:48.8%;background:#d6409f"></i></span><span class="gh-lval">59<em>9.8%</em></span></div><div class="gh-lrow"><span class="gh-lname">Go</span><span class="gh-ltrack"><i style="width:28.1%;background:#6e56cf"></i></span><span class="gh-lval">34<em>5.7%</em></span></div><div class="gh-lrow"><span class="gh-lname">Rust</span><span class="gh-ltrack"><i style="width:18.2%;background:#0091ff"></i></span><span class="gh-lval">22<em>3.7%</em></span></div><div class="gh-lrow"><span class="gh-lname">Vue</span><span class="gh-ltrack"><i style="width:18.2%;background:#e5484d"></i></span><span class="gh-lval">22<em>3.7%</em></span></div></div></div>
+  <div class="gh-sec"><h2>收藏时间线</h2><span id="ghTlRange">按年份</span></div>
+  <div class="gh-tlwrap" id="ghTimeline"><div class="gh-tl-empty">正在统计…</div></div>
 
   <div class="gh-sec"><h2>用途分类</h2><span>点一下只看这一类</span></div>
   <div class="gh-sbar"><i style="width:19.70%;background:#6e56cf"></i><i style="width:17.53%;background:#3e63dd"></i><i style="width:13.86%;background:#e54d2e"></i><i style="width:11.69%;background:#12a594"></i><i style="width:10.02%;background:#d6409f"></i><i style="width:8.68%;background:#30a46c"></i><i style="width:7.01%;background:#c98a00"></i><i style="width:6.51%;background:#0091ff"></i><i style="width:3.17%;background:#e5484d"></i><i style="width:1.84%;background:#8b8d98"></i></div>
@@ -287,17 +301,54 @@ function renderAll(){
   var n = DETAIL.length;
   var t = $('ghTotal'); if(t) t.textContent = n;
   var st2 = $('ghStatus'); if(st2) st2.style.display='none';
-  var langs = {}, cats = {}, sw = 0, cc = {};
+  var cats = {}, sw = 0, liveN = 0;
   for(var i=0;i<n;i++){
     var x = DETAIL[i];
-    if(x.l && x.l !== '未标注') langs[x.l] = 1;
     cats[x.c] = (cats[x.c]||0)+1;
     sw += x.s;
+    var dd0 = daysSince(x.up);
+    if(dd0 >= 0 && dd0 <= 180) liveN++;
   }
   var e;
-  e = $('ghLangN'); if(e) e.textContent = Object.keys(langs).length;
+  e = $('ghLiveN'); if(e) e.textContent = liveN;
   e = $('ghCatN'); if(e) e.textContent = Object.keys(cats).length;
   e = $('ghStarW'); if(e) e.textContent = Math.round(sw/10000);
+  // 收藏时间线
+  var tl = $('ghTimeline');
+  if(tl){
+    var byY = {}, minY = 9999, maxY = 0, earliest = '';
+    for(var t1=0;t1<n;t1++){
+      var s0 = DETAIL[t1].st || '';
+      if(s0.length < 4) continue;
+      if(!earliest || s0 < earliest) earliest = s0;
+      var yv = +s0.slice(0,4);
+      if(yv < minY) minY = yv;
+      if(yv > maxY) maxY = yv;
+      byY[yv] = (byY[yv]||0)+1;
+    }
+    if(maxY >= minY){
+      var mxv = 1, bestY = minY, bestC = 0;
+      for(var yk in byY){ if(byY[yk] > mxv) mxv = byY[yk]; if(byY[yk] > bestC){ bestC = byY[yk]; bestY = +yk; } }
+      var cols = '';
+      for(var yy = minY; yy <= maxY; yy++){
+        var cv = byY[yy] || 0;
+        var hp = Math.max(3, Math.round(cv / mxv * 112));
+        cols += '<div class="gh-tl-col"><span class="gh-tl-num">' + (cv || '') + '</span>'
+              + '<div class="gh-tl-bar' + (cv === mxv ? ' gh-max' : '') + '" style="height:' + hp + 'px"'
+              + ' title="' + yy + ' \u5e74 ' + cv + ' \u4e2a"></div>'
+              + '<span class="gh-tl-lab">' + String(yy).slice(2) + '</span></div>';
+      }
+      tl.innerHTML = '<div class="gh-tl">' + cols + '</div>'
+        + '<div class="gh-tl-foot">'
+        + '<span>\u6700\u65e9\u6536\u85cf <b>' + (earliest ? earliest.slice(0,10) : '\u2014') + '</b></span>'
+        + '<span>\u6700\u6d3b\u8dc3 <b>' + bestY + ' \u5e74</b>\uff08' + bestC + ' \u4e2a\uff09</span>'
+        + '<span>\u8de8\u5ea6 <b>' + (maxY - minY + 1) + ' \u5e74</b></span>'
+        + '</div>';
+      var rg = $('ghTlRange'); if(rg) rg.textContent = minY + ' \u2014 ' + maxY;
+    } else {
+      tl.innerHTML = '<div class="gh-tl-empty">\u6682\u65e0\u6536\u85cf\u65f6\u95f4\u6570\u636e</div>';
+    }
+  }
   var box = $('ghChips');
   if(box){
     var order = [];
